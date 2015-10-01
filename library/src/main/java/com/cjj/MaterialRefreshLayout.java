@@ -8,14 +8,12 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 public class MaterialRefreshLayout extends FrameLayout {
@@ -216,7 +214,7 @@ public class MaterialRefreshLayout extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (isRefreshing) return true;
+        if (isRefreshing || !isEnabled()) return true;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mTouchY = ev.getY();
@@ -257,7 +255,7 @@ public class MaterialRefreshLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        if (isRefreshing) {
+        if (isRefreshing || !isEnabled()) {
             return super.onTouchEvent(e);
         }
 
